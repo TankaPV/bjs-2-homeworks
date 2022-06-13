@@ -74,26 +74,35 @@ class Book extends PrintEditionItem {
 
  	findBookBy(type, value) {
  	
- 		if (this.books.every((item) => item[type] !== value)) {
+ 		const valueFound = this.books.find((item) => item[type] === value);
+
+ 		if (valueFound === undefined) {
  			return null;
  		}
 
-    return this.books.find((item) => item[type] === value);
+ 		return valueFound;
        
     }
 
-    giveBookByName(bookName) {
+  giveBookByName(bookName) {
+    	
+   	const indexFound = this.books.findIndex((item) => {
+   			return item.name === bookName;
+    			
+   	});		
 
-    	if (this.books.findIndex((item) => item.name === bookName) === -1) {
-    		return null;
-    	}
+   	if (indexFound === -1) {
+   		return null;
 
-    	return this.books.splice(this.books.findIndex((item) => {
-    		if (item.name === bookName) {
-    			console.log(item.name);
-    		}}), 1);   	
+   	} else {
 
-    }
+   		console.log(indexFound);
+   		console.log(this.books[indexFound].name);
+			return this.books.splice(indexFound, 1)[0];
+      
+  	}
+    	 
+  }
 }
 
 
